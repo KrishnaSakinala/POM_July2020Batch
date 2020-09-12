@@ -4,9 +4,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
 
 import basetest.BaseTest;
-import pages.HomePage;
-import pages.ProductDisplayPage;
-import pages.SearchResultsPage;
+import pages.*;
 
 public class PlaceOrderTest extends BaseTest{
 	
@@ -16,7 +14,21 @@ public class PlaceOrderTest extends BaseTest{
 		HomePage homePage = new HomePage(driver);
 		PageFactory.initElements(driver, homePage);
 		SearchResultsPage searchResultsPage = homePage.searchBook();
-		ProductDisplayPage productDisplayPage = searchResultsPage.clickSearchedBook();		
+		ProductDisplayPage productDisplayPage = searchResultsPage.clickSearchedBook();
+		BasketPage basketPage = productDisplayPage.navigaTeBasketPage();
+		CheckoutPage checkoutPage = basketPage.proceedToCheckout();
+		checkoutPage.placeOrderUsingCOD();
 	}
 
+	@Test
+	public void placeOrderByDirectBankTransfer() throws InterruptedException
+	{
+		HomePage homePage = new HomePage(driver);
+		PageFactory.initElements(driver, homePage);
+		SearchResultsPage searchResultsPage = homePage.searchBook();
+		ProductDisplayPage productDisplayPage = searchResultsPage.clickSearchedBook();
+		BasketPage basketPage = productDisplayPage.navigaTeBasketPage();
+		CheckoutPage checkoutPage = basketPage.proceedToCheckout();
+		checkoutPage.placeOrderByDirectBankTransfer();
+	}
 }

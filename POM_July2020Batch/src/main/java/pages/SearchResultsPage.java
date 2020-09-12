@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class SearchResultsPage extends BasePage{
 	
-	@FindBy(how = How.XPATH, using = "//a[@title='HTML5 WebApp Develpment']")
+	@FindBy(how = How.XPATH, using = "//a[@title='Selenium Ruby']")
 	private WebElement searchResultsBookTitle;
 	
 	
@@ -17,11 +17,14 @@ public class SearchResultsPage extends BasePage{
 		super(driver); // calling the parent class constructor
 	}
 	
-	public ProductDisplayPage clickSearchedBook()
+	public ProductDisplayPage clickSearchedBook() throws InterruptedException
 	{
 		searchResultsBookTitle.click();
-		PageFactory.initElements(driver, new ProductDisplayPage());
-		return new ProductDisplayPage();
+		Thread.sleep(15000);
+		
+		ProductDisplayPage productDisplayPage = new ProductDisplayPage(driver);
+		PageFactory.initElements(driver, productDisplayPage);
+		return productDisplayPage;
 	}
 
 }

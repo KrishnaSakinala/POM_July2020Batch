@@ -19,11 +19,13 @@ public class HomePage extends BasePage{
 	
 	public SearchResultsPage searchBook() throws InterruptedException
 	{
-		searchTextbox.sendKeys("HTML5 WebApp Develpment");
+		searchTextbox.sendKeys("Selenium Ruby");
 		searchTextbox.sendKeys(Keys.ENTER);
-		Thread.sleep(10000);
-		PageFactory.initElements(driver, new SearchResultsPage(driver));
-		return new SearchResultsPage(driver);
+		//PageFactory.initElements(driver, new SearchResultsPage(driver));
+		//return new SearchResultsPage(driver);
+		SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
+		PageFactory.initElements(driver, searchResultsPage);
+		return searchResultsPage;
 	}
 
 }
