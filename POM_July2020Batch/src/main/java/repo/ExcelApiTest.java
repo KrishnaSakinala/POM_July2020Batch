@@ -26,56 +26,136 @@ public class ExcelApiTest {
 		fis.close();
 	}
 
-	public String getCellData(String sheetName, int colNum, int rowNum)
-	{
+	public String getCellData(String sheetName, int colNum, int rowNum) {
 		try {
 			sheet = workbook.getSheet(sheetName);
 			row = sheet.getRow(rowNum);
 			cell = row.getCell(colNum);
-			
-			if(cell.getCellTypeEnum() == CellType.STRING)
-			{
+
+			if (cell.getCellTypeEnum() == CellType.STRING) {
 				return cell.getStringCellValue();
-			}
-			else if(cell.getCellTypeEnum() == CellType.NUMERIC || cell.getCellTypeEnum() == CellType.FORMULA)
-			{
+			} else if (cell.getCellTypeEnum() == CellType.NUMERIC || cell.getCellTypeEnum() == CellType.FORMULA) {
 				return String.valueOf(cell.getNumericCellValue());
-			}
-			else if(cell.getCellTypeEnum() == CellType.BLANK)
-			{
+			} else if (cell.getCellTypeEnum() == CellType.BLANK) {
 				return "";
-			}
-			else
-			{
+			} else {
 				return String.valueOf(cell.getBooleanCellValue());
 			}
-			
-		}
-		catch(Exception e)
-		{
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "row" + rowNum + " or Column " + colNum + " does not exist in the excel";
 		}
 	}
 
 	public String getCellData(String sheetName, String colName, int rowNum) {
-		return null;
+
+		try {
+			int col_Num = -1;
+			sheet = workbook.getSheet(sheetName);
+			row = sheet.getRow(0);
+
+			for (int i = 0; i < row.getLastCellNum(); i++) {
+				if (row.getCell(i).getStringCellValue().trim().equals(colName)) {
+					col_Num = i;
+				}
+			}
+			row = sheet.getRow(rowNum);
+			cell = row.getCell(col_Num);
+
+			if (cell.getCellTypeEnum() == CellType.STRING) {
+				return cell.getStringCellValue();
+			} else if (cell.getCellTypeEnum() == CellType.NUMERIC || cell.getCellTypeEnum() == CellType.FORMULA) {
+				return String.valueOf(cell.getNumericCellValue());
+			} else if (cell.getCellTypeEnum() == CellType.BLANK) {
+				return "";
+			} else {
+				return String.valueOf(cell.getBooleanCellValue());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "row" + rowNum + " or Column " + colName + " does not exist in the excel";
+		}
+
 	}
 
 	public int getRowCount(String sheetName) {
-		return 0;
+		sheet = workbook.getSheet(sheetName);
+		int rowCount = sheet.getLastRowNum() + 1;
+		return rowCount;
 	}
 
 	public int getColumnCount(String sheetName) {
-		return 0;
+		sheet = workbook.getSheet(sheetName);
+		row = sheet.getRow(0);
+		int colCount = row.getLastCellNum();
+		return colCount;
 	}
 
 	public boolean setCellData(String sheetName, int colNum, int rowNum, String value) {
+
+		try {
+			sheet = workbook.getSheet(sheetName);
+			row = sheet.getRow(rowNum);
+
+			if (row == null) {
+				row = sheet.createRow(rowNum-1);
+			}
+
+			cell = row.getCell(rowNum-1);
+
+			if (cell == null) {
+				cell = row.createCell(colNum);
+			}
+
+			cell.setCellValue(value);
+
+			fos = new FileOutputStream(xlFilePath);
+			workbook.write(fos);
+			fos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 		return true;
 	}
 
 	public boolean setCellData(String sheetName, String colName, int rowNum, String value) {
+
+		try {
+			int colNum = -1;
+			sheet = workbook.getSheet(sheetName);
+
+			row = sheet.getRow(0);
+
+			for (int i = 0; i < row.getLastCellNum(); i++) {
+				if (row.getCell(i).getStringCellValue().trim().equals(colName)) {
+					colNum = i;
+				}
+			}
+
+			row = sheet.getRow(rowNum-1);
+
+			if (row == null) {
+				row = sheet.createRow(rowNum-1);
+			}
+
+			cell = row.getCell(rowNum);
+
+			if (cell == null) {
+				cell = row.createCell(colNum);
+			}
+
+			cell.setCellValue(value);
+
+			fos = new FileOutputStream(xlFilePath);
+			workbook.write(fos);
+			fos.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 		return true;
 	}
-
 }
