@@ -18,7 +18,7 @@ public class PlaceOrderTest extends BaseTest {
 
 		if(DataUtil.isTestExecutable(eat, "placeOrderByCOD"))
 		{
-			HomePage homePage = new HomePage(driver);
+			HomePage homePage = new HomePage(driver,extentTest);
 			PageFactory.initElements(driver, homePage);
 			SearchResultsPage searchResultsPage = homePage.searchBook();
 			ProductDisplayPage productDisplayPage = searchResultsPage.clickSearchedBook();
@@ -43,7 +43,7 @@ public class PlaceOrderTest extends BaseTest {
 			throw new SkipException("Skipping the Test as run mode is N");
 		}
 		
-		HomePage homePage = new HomePage(driver);
+		HomePage homePage = new HomePage(driver,extentTest);
 		PageFactory.initElements(driver, homePage);
 		SearchResultsPage searchResultsPage = homePage.searchBook();
 		ProductDisplayPage productDisplayPage = searchResultsPage.clickSearchedBook();

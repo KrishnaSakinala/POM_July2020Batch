@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.aventstack.extentreports.ExtentTest;
+
 public class BasketPage extends BasePage{
 
 	@FindBy(xpath = "//*[@id=\"coupon_code\"]")
@@ -16,8 +18,8 @@ public class BasketPage extends BasePage{
 	@FindBy(xpath = "//*[@id=\"page-34\"]/div/div[1]/div/div/div/a")
 	private WebElement proceedToCheckoutButton;
 	
-	public BasketPage(WebDriver driver) {
-		super(driver);
+	public BasketPage(WebDriver driver,ExtentTest extentTest) {
+		super(driver,extentTest);
 	}
 	
 	public CheckoutPage proceedToCheckout()
@@ -28,7 +30,7 @@ public class BasketPage extends BasePage{
 		
 		proceedToCheckoutButton.click();
 		
-		CheckoutPage checkoutPage = new CheckoutPage(driver);
+		CheckoutPage checkoutPage = new CheckoutPage(driver,extentTest);
 		PageFactory.initElements(driver, checkoutPage);
 		
 		return checkoutPage;

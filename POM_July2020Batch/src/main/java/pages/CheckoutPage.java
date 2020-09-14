@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import com.aventstack.extentreports.ExtentTest;
+
 import repo.Locators;
 
 public class CheckoutPage extends BasePage{
@@ -49,8 +51,8 @@ public class CheckoutPage extends BasePage{
     private WebElement placeOrderButton;
 	
 	
-	public CheckoutPage(WebDriver driver) {
-		super(driver);
+	public CheckoutPage(WebDriver driver,ExtentTest extentTest) {
+		super(driver,extentTest);
 	}
 	
 	public void placeOrderUsingCOD()
