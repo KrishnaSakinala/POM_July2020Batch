@@ -49,6 +49,9 @@ public class CheckoutPage extends BasePage{
 
     @FindBy(how = How.XPATH, using = Locators.PLACE_ORDER_BUTTON)
     private WebElement placeOrderButton;
+    
+    @FindBy(xpath = Locators.SUCCESS_OR_ERROR_MESSAGE_LABEL)
+    private WebElement SuccessOrErrorMessagLabel;
 	
 	
 	public CheckoutPage(WebDriver driver,ExtentTest extentTest) {
@@ -77,6 +80,11 @@ public class CheckoutPage extends BasePage{
 		addressTextbox.sendKeys("Address");
 		cityTextbox.sendKeys("City");
 		zipcodeTextbox.sendKeys("12345");
+	}
+	
+	public String getSuccessOrErrorMessage()
+	{
+		return SuccessOrErrorMessagLabel.getText();
 	}
 
 }

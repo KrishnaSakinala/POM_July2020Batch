@@ -28,5 +28,6 @@ public class Locators {
     public static final String SEARCH_RESULT_BOOKTITLE = "//*[@id='post-160']/div/div/h2/a";
     public static final String SUCCESS_MESSAGE_LABEL = "//*[@id='content']/div[1]";
     public static final String VIEW_BASKET_BUTTON = "//*[@id='content']/div[1]/a";
+    public static final String SUCCESS_OR_ERROR_MESSAGE_LABEL = "";
 
 }

@@ -6,6 +6,7 @@ import org.testng.SkipException;
 import org.testng.annotations.Test;
 
 import basetest.BaseTest;
+import junit.framework.Assert;
 import pages.*;
 import repo.DataUtil;
 
@@ -25,6 +26,9 @@ public class PlaceOrderTest extends BaseTest {
 			BasketPage basketPage = productDisplayPage.navigaTeBasketPage();
 			CheckoutPage checkoutPage = basketPage.proceedToCheckout();
 			checkoutPage.placeOrderUsingCOD();
+			String message = checkoutPage.getSuccessOrErrorMessage();
+			Assert.assertEquals("Place Order Success", message);
+			
 		}
 		else
 		{
